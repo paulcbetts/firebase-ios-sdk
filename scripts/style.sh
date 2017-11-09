@@ -20,7 +20,8 @@ find . \
     -name 'Messaging' -prune -o \
     -name 'Storage' -prune -o \
     -name 'Pods' -prune -o \
-    \( -name '*.[mh]' -o -name '*.mm' \) \
+    -path '*/Firestore/Port/*' -prune -o \
+    \( -name '*.[mh]' -o -name '*.mm' -o -name '*.cc' \) \
     -not -name '*.pbobjc.*' \
     -not -name '*.pbrpc.*' \
     -print0 | xargs -0 clang-format -style=file -i
