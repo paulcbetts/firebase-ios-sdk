@@ -40,7 +40,6 @@
 #import "Remote/FSTRemoteStore.h"
 #import "Util/FSTAssert.h"
 #import "Util/FSTDispatchQueue.h"
-#import "Util/FSTUtil.h"
 
 #import "FSTIntegrationTestCase.h"
 
