@@ -16,27 +16,19 @@
 
 #import "FSTUtil.h"
 
+#include "src/cpp/util/random.h"
+
 NS_ASSUME_NONNULL_BEGIN
-
-static const double kArc4RandomMax = 0x100000000;
-
-static const int kAutoIDLength = 20;
-static NSString *const kAutoIDAlphabet =
-    @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
 @implementation FSTUtil
 
 + (double)randomDouble {
-  return ((double)arc4random() / kArc4RandomMax);
+  return firestore::RandomDouble();
 }
 
 + (NSString *)autoID {
-  unichar autoID[kAutoIDLength];
-  for (int i = 0; i < kAutoIDLength; i++) {
-    uint32_t randIndex = arc4random_uniform((uint32_t)kAutoIDAlphabet.length);
-    autoID[i] = [kAutoIDAlphabet characterAtIndex:randIndex];
-  }
-  return [NSString stringWithCharacters:autoID length:kAutoIDLength];
+  std::string result = firestore::CreateAutoId();
+  return [NSString stringWithUTF8String:result.c_str()];
 }
 
 @end
