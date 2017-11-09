@@ -16,6 +16,8 @@
 
 #import "FIRCollectionReference.h"
 
+#include "src/cpp/util/random.h"
+
 #import "FIRDocumentReference+Internal.h"
 #import "FIRQuery+Internal.h"
 #import "FIRQuery_Init.h"
@@ -24,7 +26,6 @@
 #import "FSTPath.h"
 #import "FSTQuery.h"
 #import "FSTUsageValidation.h"
-#import "FSTUtil.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -102,7 +103,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (FIRDocumentReference *)documentWithAutoID {
-  NSString *autoID = [FSTUtil autoID];
+  NSString *autoID = [NSString stringWithUTF8String:firestore::CreateAutoId().c_str()];
   FSTDocumentKey *key =
       [FSTDocumentKey keyWithPath:[self.query.path pathByAppendingSegment:autoID]];
   return [FIRDocumentReference referenceWithKey:key firestore:self.firestore];

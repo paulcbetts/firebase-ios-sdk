@@ -16,9 +16,10 @@
 
 #import "FSTExponentialBackoff.h"
 
+#include "src/cpp/util/random.h"
+
 #import "FSTDispatchQueue.h"
 #import "FSTLogger.h"
-#import "FSTUtil.h"
 
 @interface FSTExponentialBackoff ()
 - (instancetype)initWithDispatchQueue:(FSTDispatchQueue *)dispatchQueue
@@ -90,7 +91,7 @@
 
 /** Returns a random value in the range [-currentBase/2, currentBase/2] */
 - (NSTimeInterval)jitterDelay {
-  return ([FSTUtil randomDouble] - 0.5) * _currentBase;
+  return (firestore::RandomDouble() - 0.5) * _currentBase;
 }
 
 @end
